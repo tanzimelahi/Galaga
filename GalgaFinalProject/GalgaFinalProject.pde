@@ -4,21 +4,25 @@ float angle;
 int increment;
 float time=millis();
 float timePassed;
-ArrayList<Monster>enemy;
+ArrayList<Red>enemy;
 ArrayList<Float>initialPos;
 ArrayList<heroBullet>missile;
 ArrayList<monsterBullet>viper;
+int timer;
+int upToWhich;
 Player hero;
 void setup(){
   size(600,600);
   int yPlace=0;// initiates the ycord of the monsters
   int yPlace2=0;// same as yPlace on the other side of the screen
-  enemy=new ArrayList<Monster>();
+  upToWhich=0;
+  timer=0;
+  enemy=new ArrayList<Red>();
   hero=new Player();
   missile=new ArrayList<heroBullet>();
   viper=new ArrayList<monsterBullet>();
   initialPos=new ArrayList<Float>();
-  int number=(int)random(10)+10;// gives the size of the list enemy(num of monsters)
+  int number=(int)random(1)+10;// gives the size of the list enemy(num of monsters)
   for(int i=0;i<number;i++){
     enemy.add(new Red());
   }
@@ -28,7 +32,7 @@ void setup(){
       enemy.get(i).setY(yPlace);
       enemy.get(i).setColors((int)random(3));
       initialPos.add(enemy.get(i).getY());
-      yPlace+=30;
+     // yPlace+=30;
       viper.add(enemy.get(i).fire());
       
     }
@@ -64,7 +68,7 @@ void setup(){
    
   }
   System.out.println(keyCode);
-  for(int i=0;i<enemy.size();i++){
+  for(int i=0;i<upToWhich && i<enemy.size();i++){
      enemy.get(i).move(1,initialPos.get(i));
    if(enemy.get(i).getX()<0 || enemy.get(i).getX()>width){
      enemy.get(i).reverseIncrement();
@@ -76,6 +80,13 @@ void setup(){
        missile.get(i).move();
      }
    }
+   timer++;
+   if(timer==10){
+     upToWhich++;
+     timer=0;
+   }
+   // anything related to move2 here
+   
  
  
 }
