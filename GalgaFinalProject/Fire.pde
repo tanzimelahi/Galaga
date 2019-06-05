@@ -30,4 +30,39 @@ public class heroBullet extends Bullet{
     this.y-=10;
     display(this.y);
   }
+  
+  boolean isTouching(Red villain){
+    float xcord=(x+30+x)/2;
+    float ycord=y;
+    float tallness=Math.abs(villain.getY()-ycord);
+    if(tallness<=55){// the range is done
+      float HOS=40-tallness+15;
+      float base=HOS/4.0;
+      float deltaX=Math.abs(villain.getX()-xcord);
+      if(deltaX<=15+base){
+        return true;
+      }
+      else{
+        return false;
+      }  
+    }
+    return false;
+  }
+  boolean isTouching(monsterBullet villain){
+    float xcord=(x+30+x)/2;
+    float ycord=y;
+    float tallness=Math.abs(villain.getY()-ycord);
+    if(tallness<=55){// the range is done
+      float HOS=40-tallness+15;
+      float base=HOS/4.0;
+      float deltaX=Math.abs(villain.getX()-xcord);
+      if(deltaX<=15+base){
+        return true;
+      }
+      else{
+        return false;
+      }  
+    }
+    return false;
+  }
 }
