@@ -1,4 +1,4 @@
-public abstract class Bullet{
+  abstract class Bullet{
   float x;
   float y;
   public Bullet(){
@@ -10,7 +10,7 @@ public abstract class Bullet{
   void display(float y){
   }
 }
-public class heroBullet extends Bullet{
+  class heroBullet extends Bullet{
   float x,y;
   Player creature;
   public heroBullet(Player crea){

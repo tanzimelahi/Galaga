@@ -95,4 +95,12 @@ class Red extends Monster{
     if(deltaX<-15 || deltaX>45){
       return false;
     }
+  }
+   void circle(float angle,float radius,float initX,float initY){
+      float transX,transY;
+      transX= initX-radius;
+      this.x=radius*cos(angle)+transX;
+      transY=initY-radius;
+      this.y=radius*sin(angle)+transY;
+    }
 }
