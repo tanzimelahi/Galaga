@@ -103,4 +103,10 @@ class Red extends Monster{
       transY=initY-radius;
       this.y=radius*sin(angle)+transY;
     }
+       float linearMotion(float x,float y,float angle){// the x and y values will have to be stored in an arraylist
+      this.y=-1*atan(angle)*(x-this.x)+y;
+      this.x+=2;
+      return this.y;
+      
+    }
 }
