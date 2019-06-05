@@ -93,4 +93,52 @@ public class monsterBullet extends Bullet{
     this.y+=10;// change this
     display(this.y);
   }
+   boolean isTouching(Player hero){
+    float deltaX=this.x-hero.getX();
+    if(deltaX<-15 || deltaX>45){
+      return false;
+    }
+    float slope=(-this.y+hero.getY())/deltaX;
+    float angle=Math.abs(atan(slope));
+    if(angle<0){
+      
+    }
+    float heightOfSeparation=sin(angle)*dist(this.x,this.y,hero.getX(),hero.getY());
+    float HOS=heightOfSeparation;
+    if(HOS<=15){
+      return true;
+    }
+    else if(HOS<=55){
+      float tallness=40-HOS+15;
+      if(deltaX<=15){
+        float base=tallness/4.0;
+        float xcor=hero.getX()+15-base;
+        float ycor=hero.getY()-40+tallness;
+        if(dist(this.x,this.y,xcor,this.y)<=15){
+          
+          return true;
+        }
+        else{
+          
+          
+          return false;
+        }
+      }
+      else{
+        float base=tallness/4;
+        float xcor=hero.getX()+15+base;
+        float ycor=hero.getY()-40+tallness;
+        if(dist(this.x,this.y,xcor,this.y)<=15){
+          
+          return true;
+        }
+        else{
+          return false;
+        }
+       }
+    }
+      else{
+        return false;
+      }
+    }
 }
