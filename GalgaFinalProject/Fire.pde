@@ -66,3 +66,31 @@ public class heroBullet extends Bullet{
     return false;
   }
 }
+public class monsterBullet extends Bullet{
+  float x,y;
+   Red creature;
+   public monsterBullet(Red creature){
+     this.creature=creature;
+     this.x=creature.x;
+     this.y=creature.y;
+   }
+   float getX(){
+     return this.x;
+   }
+   float getY(){
+     return this.y;
+   }
+   void display(float y){
+     fill(0);
+     ellipse(this.x,y,10,10);
+     triangle(this.x-5,y,this.x,y-10,this.x+5,y);
+     triangle(this.x,y+5,this.x,y-5,this.x-10,y);
+     triangle(this.x,y+5,this.x,y-5,this.x+10,y);
+     triangle(this.x-5,y,this.x+5,y,this.x,y-10);
+     
+   }
+   void move(){
+    this.y+=10;// change this
+    display(this.y);
+  }
+}
