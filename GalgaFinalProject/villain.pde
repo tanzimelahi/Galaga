@@ -15,4 +15,24 @@
   boolean getLife(){
     return isAlive;
   }
+  void setLife(boolean value){
+    isAlive=value;
+  }
+  void display(float x,float y){
+    if(getLife()){
+    fill(255,0,0);
+    rect(x,y,30,10);
+    triangle((x+30+x)/2-5,y,(x+30+x)/2,y-40,(x+30+x)/2+5,y);
+    rect( (x+30+x)/2-5,y+10,10,20);
+    }
+  }
+  void display(){
+    
+    if(getLife()){
+    fill(255,0,0);
+    rect(x,y,30,10);
+    triangle((x+30+x)/2-5,y,(x+30+x)/2,y-40,(x+30+x)/2+5,y);
+    rect( (x+30+x)/2-5,y+10,10,20);
+    }
+  }
 }
