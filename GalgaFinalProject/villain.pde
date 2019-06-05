@@ -90,5 +90,9 @@ class Red extends Monster{
     fill(a,b,c);
     ellipse(this.x,this.y,100,100);
   }
-  
+   boolean isTouching(Player hero){
+    float deltaX=this.x-hero.getX();
+    if(deltaX<-15 || deltaX>45){
+      return false;
+    }
 }
