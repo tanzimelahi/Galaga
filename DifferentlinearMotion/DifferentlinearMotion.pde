@@ -47,7 +47,7 @@ void setup(){
     initY.add(non.getY());
     enemy.add(non);
     linearMomentum.add(non);
-    XPos.add(random(200));
+    XPos.add(random(500));
     YPos.add(0.0);
     
   }
@@ -59,9 +59,7 @@ void setup(){
     isRight.add(false);
     }
   }
-  for(int i=0;i<4;i++){
-    slope.add((enemy.get(i).getY()-YPos.get(i))/(enemy.get(i).getX()-XPos.get(i)));
-  }
+
    angle=0;
   
 }
@@ -69,24 +67,24 @@ void draw(){
  time=millis()/1000;
  background(255);
  fill(255,0,0);
- for(int i=0;i<enemy.size();i++){
-   enemy.get(i).display();
- }
-    //enemy.get(i).move2(XPos.get(i),YPos.get(i),slope.get(i));
-// } // this is the working code for linear motion
-// System.out.println(enemy.get(0).getX()+" "+enemy.get(0).getY());
+  for(int i=0;i<enemy.size();i++){
+    enemy.get(i).display();
+  }
  if(time<3){
   for(int i=0;i<vil.size();i++){
-      if(time==3){
-       for(int j=0;j<vil.size();j++){
-         circleXcords.add(vil.get(j).getX());
-         circleYcords.add(vil.get(j).getY());
-         elapsedTime=time;
-       }
-      }
       enemy.get(i).circle(angle+(2*PI/enemy.size())*i,30,initX.get(i),initY.get(i));
     }
  }
+    else if(time==3){
+       for(int j=0;j<vil.size();j++){
+         circleXcords.add(vil.get(j).getX());
+         circleYcords.add(vil.get(j).getY());
+          slope.add((enemy.get(j).getY()-YPos.get(j)/(enemy.get(j).getX()-XPos.get(j))));
+         if
+         elapsedTime=time;
+       }
+       
+      }
     else if(time>3){
        for(int k=0; k<enemy.size();k++){
          linearMomentum.get(k).move2(XPos.get(k),YPos.get(k),slope.get(k),isRight.get(k));
@@ -96,12 +94,6 @@ void draw(){
     System.out.println("this is the"+i+" coords "+"x cord: "+enemy.get(i).getX()+"y cord:"+enemy.get(i).getY()+"this is the target x:"+XPos.get(i)+"this is target y: "+YPos.get(i)+"this is the boolean"+isRight.get(i));
     
   }
- // if(time>5){
-  //   for(int i=0;i<vil.size();i++){
-      // vil.get(i).linearMotion(circleXcords.get(i),circleYcords.get(i),(2*PI/vil.size())*i);
-  //   }
-//  }
-  
    angle+=0.1;
    
    

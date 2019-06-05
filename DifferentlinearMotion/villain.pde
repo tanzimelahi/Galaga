@@ -69,26 +69,28 @@ class Red extends Monster{
   void move2(float x,float y,float slope,boolean right){
    if(right){
     if(this.x>=x && this.y>=y){
-      System.out.println("yeah");
       if(this.x!=x){
         this.y=slope*(this.x-x)+y;
+        
         this.x-=1;
         
       }
-      else{
+      else if(this.y>1){
         this.y-=1;
         
       }
+     
     }
+   
    }
    else{
-      if(this.x<x && this.y>=y){
+      if(this.x<=x && this.y>=y){
       if(this.x!=x){
         this.y=slope*(this.x-x)+y;
         this.x+=1;
         
       }
-      else{
+      else if(this.y>1){
         this.y-=1;
       }
     }
