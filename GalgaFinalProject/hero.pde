@@ -1,4 +1,4 @@
- class Player{
+public class Player{
   float x,y;
   boolean isAlive;
   public Player(){
@@ -35,7 +35,7 @@
     rect( (x+30+x)/2-5,y+10,10,20);
     }
   }
-    void move(int direction){// 1 right,-1 left
+  void move(int direction){// 1 right,-1 left
     if(this.x<-1 && direction==-1){
     }
     else if(this.x>=width-20 && direction==1){
@@ -45,5 +45,9 @@
     display(this.x,this.y);
     }
     
+  }
+  heroBullet fire(){
+    heroBullet  missile=new heroBullet(this);
+    return missile;
   }
 }

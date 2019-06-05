@@ -67,7 +67,6 @@ mode=1;
  angle=0;
  timePassed=0;
 }
-
  void draw(){
  background(255);
  time=millis()/1000;
@@ -278,3 +277,5 @@ mode=1;
        //}
      //}
    //}
+ 
+ 

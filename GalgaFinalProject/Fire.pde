@@ -1,4 +1,4 @@
-  abstract class Bullet{
+public abstract class Bullet{
   float x;
   float y;
   public Bullet(){
@@ -10,7 +10,7 @@
   void display(float y){
   }
 }
-  class heroBullet extends Bullet{
+public class heroBullet extends Bullet{
   float x,y;
   Player creature;
   public heroBullet(Player crea){
@@ -30,7 +30,6 @@
     this.y-=10;
     display(this.y);
   }
-  
   boolean isTouching(Red villain){
     float xcord=(x+30+x)/2;
     float ycord=y;
@@ -65,6 +64,8 @@
     }
     return false;
   }
+  
+  
 }
 public class monsterBullet extends Bullet{
   float x,y;
@@ -93,7 +94,7 @@ public class monsterBullet extends Bullet{
     this.y+=10;// change this
     display(this.y);
   }
-   boolean isTouching(Player hero){
+  boolean isTouching(Player hero){
     float deltaX=this.x-hero.getX();
     if(deltaX<-15 || deltaX>45){
       return false;
@@ -141,4 +142,4 @@ public class monsterBullet extends Bullet{
         return false;
       }
     }
-}
+  }

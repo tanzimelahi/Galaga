@@ -90,23 +90,71 @@ class Red extends Monster{
     fill(a,b,c);
     ellipse(this.x,this.y,100,100);
   }
-   boolean isTouching(Player hero){
+  monsterBullet fire(){
+    monsterBullet missile=new monsterBullet(this);
+    return missile;
+  }
+    boolean isTouching(Player hero){
     float deltaX=this.x-hero.getX();
     if(deltaX<-15 || deltaX>45){
       return false;
     }
-  }
-   void circle(float angle,float radius,float initX,float initY){
+    float slope=(-this.y+hero.getY())/deltaX;
+    float angle=Math.abs(atan(slope));
+    if(angle<0){
+     // System.out.println(angle);
+    }
+    float heightOfSeparation=sin(angle)*dist(this.x,this.y,hero.getX(),hero.getY());
+    float HOS=heightOfSeparation;
+    if(HOS<=15){
+      return true;
+    }
+    else if(HOS<=55){
+      float tallness=40-HOS+15;
+      if(deltaX<=15){
+        float base=tallness/4.0;
+        float xcor=hero.getX()+15-base;
+        float ycor=hero.getY()-40+tallness;
+        if(dist(this.x,this.y,xcor,this.y)<=15){
+          System.out.println(2);
+          return true;
+        }
+        else{
+          //System.out.println(ycor+" "+ xcor+" "+ dist(this.x,this.y,xcor,ycor));
+          
+          return false;
+        }
+      }
+      else{
+        float base=tallness/4;
+        float xcor=hero.getX()+15+base;
+        float ycor=hero.getY()-40+tallness;
+        if(dist(this.x,this.y,xcor,this.y)<=15){
+          System.out.println(3);
+          return true;
+        }
+        else{
+          return false;
+        }
+       }
+    }
+      else{
+        return false;
+      }
+    }
+      void circle(float angle,float radius,float initX,float initY){
       float transX,transY;
       transX= initX-radius;
       this.x=radius*cos(angle)+transX;
       transY=initY-radius;
       this.y=radius*sin(angle)+transY;
     }
-       float linearMotion(float x,float y,float angle){// the x and y values will have to be stored in an arraylist
+      float linearMotion(float x,float y,float angle){// the x and y values will have to be stored in an arraylist
       this.y=-1*atan(angle)*(x-this.x)+y;
       this.x+=2;
       return this.y;
       
     }
+  
+  
 }
