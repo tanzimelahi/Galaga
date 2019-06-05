@@ -13,7 +13,6 @@ ArrayList<Float>XPos;
 ArrayList<Float>YPos;
 ArrayList<Float>slope;
 ArrayList<Red>enemy;
-ArrayList<Boolean>isRight;
 float time;
 float elapsedTime;
 int size;
@@ -27,7 +26,6 @@ void setup(){
   a.setY(200);
   size=0;
   elapsedTime=0;
-  isRight=new ArrayList<Boolean>();
   XPos=new ArrayList<Float>();
   YPos=new ArrayList<Float>();
   slope=new ArrayList<Float>();
@@ -47,17 +45,9 @@ void setup(){
     initY.add(non.getY());
     enemy.add(non);
     linearMomentum.add(non);
-    XPos.add(random(200));
+    XPos.add(random(1000));
     YPos.add(0.0);
     
-  }
-  for(int i=0;i<4;i++){
-    if(200>=XPos.get(i)){
-      isRight.add(true);
-    }
-    else{
-    isRight.add(false);
-    }
   }
   for(int i=0;i<4;i++){
     slope.add((enemy.get(i).getY()-YPos.get(i))/(enemy.get(i).getX()-XPos.get(i)));
@@ -72,11 +62,7 @@ void draw(){
  for(int i=0;i<enemy.size();i++){
    enemy.get(i).display();
  }
-    //enemy.get(i).move2(XPos.get(i),YPos.get(i),slope.get(i));
-// } // this is the working code for linear motion
-// System.out.println(enemy.get(0).getX()+" "+enemy.get(0).getY());
- if(time<3){
-  for(int i=0;i<vil.size();i++){
+    for(int i=0;i<vil.size();i++){
       if(time==3){
        for(int j=0;j<vil.size();j++){
          circleXcords.add(vil.get(j).getX());
@@ -86,22 +72,24 @@ void draw(){
       }
       enemy.get(i).circle(angle+(2*PI/enemy.size())*i,30,initX.get(i),initY.get(i));
     }
- }
-    else if(time>3){
-       for(int k=0; k<enemy.size();k++){
-         linearMomentum.get(k).move2(XPos.get(k),YPos.get(k),slope.get(k),isRight.get(k));
+     if(time>3){
+       for(int k=0;k<size && k<enemy.size();k++){
+         linearMomentum.get(k).move2(XPos.get(k),YPos.get(k),slope.get(k));
        }
      }
-    for(int i=0;i<4;i++){
-    System.out.println("this is the"+i+" coords "+"x cord: "+enemy.get(i).getX()+"y cord:"+enemy.get(i).getY()+"this is the target x:"+XPos.get(i)+"this is target y: "+YPos.get(i)+"this is the boolean"+isRight.get(i));
+     if(time-elapsedTime>3){
+       size++;
+       vil.remove(0);
+       elapsedTime=time;
+     }
     
-  }
+  
  // if(time>5){
   //   for(int i=0;i<vil.size();i++){
       // vil.get(i).linearMotion(circleXcords.get(i),circleYcords.get(i),(2*PI/vil.size())*i);
   //   }
 //  }
-  
+  System.out.println(time);
    angle+=0.1;
    
    

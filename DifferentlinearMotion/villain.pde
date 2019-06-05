@@ -40,7 +40,7 @@ abstract class Monster{
     this.y=num;
   }
   abstract void move(int num,float ycord);
-  abstract void move2(float x,float y,float slope);
+  abstract void move2(float x,float y,float slope,boolean right);
   abstract void display();
 }
 class Red extends Monster{
@@ -66,21 +66,33 @@ class Red extends Monster{
     this.y=10*sin(PI*x/(width/4))+ycord;
     
   }
-  void move2(float x,float y,float slope){
-     if(this.x==x && this.y==y){
-     }
-     else if(this.x==x){
-       y+=1;
-     }
-     else{
-       this.y=slope*(x-this.x)+y;
-       if(x>this.x){
-         this.x=this.x+0.002;
-       }
-       else{
-         this.x=this.x-0.002;
-       }
-     }
+  void move2(float x,float y,float slope,boolean right){
+   if(right){
+    if(this.x>=x && this.y>=y){
+      System.out.println("yeah");
+      if(this.x!=x){
+        this.y=slope*(this.x-x)+y;
+        this.x-=1;
+        
+      }
+      else{
+        this.y-=1;
+        
+      }
+    }
+   }
+   else{
+      if(this.x<x && this.y>=y){
+      if(this.x!=x){
+        this.y=slope*(this.x-x)+y;
+        this.x+=1;
+        
+      }
+      else{
+        this.y-=1;
+      }
+    }
+   }
   }
   void display(){
     ellipse(this.x,this.y,15,15);
@@ -102,7 +114,7 @@ class Red extends Monster{
     float slope=(-this.y+hero.getY())/deltaX;
     float angle=Math.abs(atan(slope));
     if(angle<0){
-      System.out.println(angle);
+      //System.out.println(angle);
     }
     float heightOfSeparation=sin(angle)*dist(this.x,this.y,hero.getX(),hero.getY());
     float HOS=heightOfSeparation;
@@ -116,11 +128,11 @@ class Red extends Monster{
         float xcor=hero.getX()+15-base;
         float ycor=hero.getY()-40+tallness;
         if(dist(this.x,this.y,xcor,this.y)<=15){
-          System.out.println(2);
+        //  System.out.println(2);
           return true;
         }
         else{
-          System.out.println(ycor+" "+ xcor+" "+ dist(this.x,this.y,xcor,ycor));
+         // System.out.println(ycor+" "+ xcor+" "+ dist(this.x,this.y,xcor,ycor));
           
           return false;
         }
@@ -130,7 +142,7 @@ class Red extends Monster{
         float xcor=hero.getX()+15+base;
         float ycor=hero.getY()-40+tallness;
         if(dist(this.x,this.y,xcor,this.y)<=15){
-          System.out.println(3);
+       //   System.out.println(3);
           return true;
         }
         else{

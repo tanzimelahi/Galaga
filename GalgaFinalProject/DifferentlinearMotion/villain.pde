@@ -8,7 +8,6 @@ abstract class Monster{
     this.x=0;
     this.y=0;
     this.increment=10;
-   
   }
   public String getName(){
     return this.name;
@@ -41,14 +40,10 @@ abstract class Monster{
     this.y=num;
   }
   abstract void move(int num,float ycord);
-  abstract void move2();
+  abstract void move2(float x,float y,float slope);
   abstract void display();
 }
 class Red extends Monster{
-  public Red(){
-    super();
-    
-  }
   
   void move(int num,float ycord){
     float x=this.x;
@@ -71,18 +66,23 @@ class Red extends Monster{
     this.y=10*sin(PI*x/(width/4))+ycord;
     
   }
-  void move2(){
+  void move2(float x,float y,float slope){
+     if(this.x==x && this.y==y){
+     }
+     else if(this.x==x){
+       y+=1;
+     }
+     else{
+       this.y=slope*(x-this.x)+this.y;
+       if(x>this.x){
+         this.x+=1;
+       }
+       else{
+         this.x-=1;
+       }
+     }
   }
   void display(){
-     if(this.colors==0){
-     fill(255,0,0);
-    }
-    else if(this.colors==1){
-      fill(0,255,0);
-    }
-    else{
-     fill(0,0,255);
-    }
     ellipse(this.x,this.y,15,15);
     
   }
@@ -102,7 +102,7 @@ class Red extends Monster{
     float slope=(-this.y+hero.getY())/deltaX;
     float angle=Math.abs(atan(slope));
     if(angle<0){
-     // System.out.println(angle);
+      System.out.println(angle);
     }
     float heightOfSeparation=sin(angle)*dist(this.x,this.y,hero.getX(),hero.getY());
     float HOS=heightOfSeparation;
@@ -120,7 +120,7 @@ class Red extends Monster{
           return true;
         }
         else{
-          //System.out.println(ycor+" "+ xcor+" "+ dist(this.x,this.y,xcor,ycor));
+          System.out.println(ycor+" "+ xcor+" "+ dist(this.x,this.y,xcor,ycor));
           
           return false;
         }
@@ -142,14 +142,14 @@ class Red extends Monster{
         return false;
       }
     }
-      void circle(float angle,float radius,float initX,float initY){
+    void circle(float angle,float radius,float initX,float initY){
       float transX,transY;
       transX= initX-radius;
       this.x=radius*cos(angle)+transX;
       transY=initY-radius;
       this.y=radius*sin(angle)+transY;
     }
-      float linearMotion(float x,float y,float angle){// the x and y values will have to be stored in an arraylist
+    float linearMotion(float x,float y,float angle){// the x and y values will have to be stored in an arraylist
       this.y=-1*atan(angle)*(x-this.x)+y;
       this.x+=2;
       return this.y;
