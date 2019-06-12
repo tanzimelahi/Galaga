@@ -5,6 +5,9 @@ float angle;
 int increment;
 float time;
 float timePassed;
+float gameOverTime;
+float gameTimePassed;//this is connected with gameOvertime
+float enterTrack;
 ArrayList<Red>enemy;
 ArrayList<Float>initialPos;
 ArrayList<Float>XPos;
@@ -20,6 +23,7 @@ float score;
 float highScore;
 float circleX;
 float circleY;
+float level=0;
 boolean win;
 boolean go;// lets the missile loose;
 int countDown;
@@ -83,7 +87,7 @@ mode=1;
      enemy.get(i).circle(angle+(2*PI/enemy.size())*i,100,500,200);
    }
    angle+=0.05;
-   if(time>3){
+   if(time-timePassed>3){
      for(int i=0;i<enemy.size();i++){
        enemy.get(i).setX(random(1000));
        enemy.get(i).setY(random(200));
@@ -93,7 +97,7 @@ mode=1;
      mode++;
    }
    textSize(100);
-  if(time<2){
+  if(time-timePassed<2){
    text("Ready!",300,300);
   }
   else{
@@ -130,7 +134,7 @@ mode=1;
     if(cleanUp.get(i).getY()>=height){
       cleanUp.get(i).setY(0);
     }
-    cleanUp.get(i).setY(cleanUp.get(i).getY()+1);
+    cleanUp.get(i).setY(cleanUp.get(i).getY()+4);
   }
   for(int i=0;i<enemy.size();i++){
     enemy.get(i).move(1,initialPos.get(i));
@@ -139,9 +143,24 @@ mode=1;
      initialPos.set(i,initialPos.get(i)+20);// changing the rate of the monsters coming down
    }
    if(enemy.get(i).isTouching(hero)){
-     hero.setLife(false);
+     hero.setLife(false); // this is where hero dies
    }
  }
+  for(int i=0;i<linearMotion.size();i++){
+    if(linearMotion.get(i).isTouching(hero)){
+      hero.setLife(false);
+    }
+  }
+  for(int i=0;i<cleanUp.size();i++){
+    if(cleanUp.get(i).isTouching(hero)){
+      hero.setLife(false);
+    }
+  }
+  for(int i=0;i<circularMonsters.size();i++){
+    if(circularMonsters.get(i).isTouching(hero)){
+      hero.setLife(false);
+    }
+  }
    if(missile.size()!=0){
      for(int i=0;i<missile.size();i++){
        missile.get(i).move();
@@ -167,7 +186,7 @@ mode=1;
        viper.get(i).move();
        if(viper.get(i).isTouching(hero)){
          viper.remove(i);
-         hero.setLife(false);
+         //hero.setLife(false);
        }
      }
    }
@@ -181,16 +200,57 @@ mode=1;
          score+=10;
          break;        
        }
-     }
+     }   
    }
+    for(int i=0;i<missile.size();i++){
+     for(int j=0;j<circularMonsters.size();j++){
+       if(missile.get(i).isTouching(circularMonsters.get(j))){
+         circularMonsters.remove(j);
+         j--;
+         missile.remove(i);
+         i--;
+         score+=10;
+         break;        
+       }
+     }   
+   }
+   for(int i=0;i<missile.size();i++){
+     for(int j=0;j<linearMotion.size();j++){
+       if(missile.get(i).isTouching(linearMotion.get(j))){
+         linearMotion.remove(j);
+         j--;
+         missile.remove(i);
+         i--;
+         score+=10;
+         break;        
+       }
+     }   
+   }
+   for(int i=0;i<missile.size();i++){
+     for(int j=0;j<cleanUp.size();j++){
+       if(missile.get(i).isTouching(cleanUp.get(j))){
+         cleanUp.remove(j);
+         j--;
+         missile.remove(i);
+         i--;
+         score+=10;
+         break;        
+       }
+     }   
+   }
+  
    if(hero.getLife()==false){
      mode=4;
      
    }
-   if(enemy.size()==0 && linearMotion.size()==0 && cleanUp.size()==00){
-    mode=4;
-    timePassed=time;
-    win=true;
+   if(enemy.size()==0 && linearMotion.size()==0 && cleanUp.size()==00 && circularMonsters.size()==0){
+    mode=5;
+    level++;
+    timePassed=millis()/1000;
+  }
+  if(mode==4){
+    gameOverTime=millis()/1000;
+    enterTrack=0;
   }
    if(time-timePassed>5){
      timePassed=time;
@@ -251,20 +311,102 @@ mode=1;
        }
      }
      if(mode==4){
+       cleanUp.clear();
+       linearX.clear();
+       linearY.clear();
+       linearAngle.clear();
+       enemy.clear();
+       missile.clear();
+       viper.clear();
+       initialPos.clear();
+       XPos.clear();
+       circularMonsters.clear();
+       linearMotion.clear();
        textSize(50);
        if(score>highScore){
          highScore=score;
        }
-       if(win==true){
-         text("YOU WON ",300,500);
-       }
        text("YOUR SCORE: "+score,300,300);
-      // text("HIGH SCORE: "+highScore,300,500);
+      text("Press enter to play again ",300,500);
+       int number=(int)random(20)+20;// gives the size of the list enemy(num of monsters)
+       countDown=0;
+       int yPlace=0;// initiates the ycord of the monsters
+      int xPlace=0;
+      for(int i=0;i<number;i++){
+      enemy.add(new Red());
+     }
+     for(int i=0;i<enemy.size();i++){
+    
+      enemy.get(i).setX(200);
+      enemy.get(i).setY(200);
+      enemy.get(i).setColors((int)random(3));
+      initialPos.add(random(200));
+      yPlace+=40;  
+      xPlace+=0;
+  
+ 
+   }
+   angle=0;
+   timePassed=millis()/1000;
+   win=false;
+   highScore=0;
       hero.setLife(true);
+      if(keyPressed==true){
+        if(key==ENTER){
+          score=0;
+          mode=1;
+        }
+      }
+    
+      
     
    }
+   if(mode==5){
+      cleanUp.clear();
+       linearX.clear();
+       linearY.clear();
+       linearAngle.clear();
+       enemy.clear();
+       missile.clear();
+       viper.clear();
+       initialPos.clear();
+       XPos.clear();
+       circularMonsters.clear();
+       linearMotion.clear();
+       textSize(50);
+       hero.setLife(true);
+         int number=(int)random(20)+20;// gives the size of the list enemy(num of monsters)
+       countDown=0;
+       int yPlace=0;// initiates the ycord of the monsters
+      int xPlace=0;
+      for(int i=0;i<number;i++){
+      enemy.add(new Red());
      }
+     for(int i=0;i<enemy.size();i++){
+    
+      enemy.get(i).setX(200);
+      enemy.get(i).setY(200);
+      enemy.get(i).setColors((int)random(3));
+      initialPos.add(random(200));
+      yPlace+=40;  
+      xPlace+=0;
+  
  
+   }
+   angle=0;
+   win=false;
+       if(time-timePassed>=2){
+         timePassed=millis()/1000;
+         mode=1;
+       }
+       else{
+         textSize(50);
+         text("level: "+level,500,300);
+         text("Score: "+score,500,500);
+       }
+   }
+     }
+
    
  //  for(int i=0;i<missile.size();i++){
    //  for(int j=0;j<viper.size();j++){
