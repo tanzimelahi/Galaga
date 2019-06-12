@@ -1,17 +1,19 @@
-Note: Due to exceptional circumstances, it was impossible for me to
-commit regularly. The commits made around 5th june are artificial and
-demonstrate how the project was build.The commits were made with the
-help of my planning notebook. I planned out on a notebook before I
-start coding, so with the help of that i can remember which part i did
-on which day and that's what the commits roughly reflect
 
-Description of project
+
+Instructions:
 The project is a modeled after the arcade game galaga.
 The player tries to survive as long as possible by killing monsters
 If he gets hit, he dies and the game is over.
-If all monsters are killed, the player wins
+If all monsters are killed, the player moves on to the next level
 Use arrow keys to move the player left and right
 Press enter to shoot bullets.
+It is recommended that you don't hold down on enter to enjoy the maximum fun of the game.
+
+Project Description:
+The project uses algorithms based on trigonometry and coordinate geometry and a little bit of calculus to move and display the sprites or objects. During the very beginning of the game the various monsters are gathered and made to move around in a circular pattern. This is done by using the general form of the equation of a circle and updating the monster's y coordinate with values of the circle equation. The x coordinates are incremented by a fixed value. All the monsters have a common center and common radius of the circle which is the reason it appears that one monster is following the other one during the very first motion made by the monsters.
+The monsters then move in a path that is based on the sine graph. By making an equation of sine and giving it a constant amplitude and by storing the initial y coordinates of the monsters it was possible to create a sine path for the monsters to follow. After an interval that is determined by a timer function, approximately 4 to 5 monsters form a circle. After spinning around in the circle for a little while, the monsters then move on a straight line whose slope is determined by  taking the derivative of the circle implicitly at that point. If any of the monsters touch any of the borders they usually bounce back from there if they are moving in the  sinusoidal pattern while they transform to the top of the screen if they touch the lower part of the screen if they are making other patterns like the circular or the tangential motion. After touching the border, the monsters simply fall down in a straight line. This relatively easy motion is used because by the time this happens, the player must have had to go through a lot and this is done as a favor so that he can actually win the level.
+
+
 
 log starts here
 
